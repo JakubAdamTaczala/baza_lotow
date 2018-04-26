@@ -1,0 +1,17 @@
+.error {
+    color:red;
+    margin-top: 5x;
+    margin-bottom: 7px;
+}
+
+a:link{
+    color: blue;
+}
+
+a:visited{
+    color: blue;
+}
+
+a:hover{
+    color: deepskyblue;
+}
