@@ -42,7 +42,7 @@
     mysqli_query($polaczenie, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     mysqli_select_db($polaczenie, $db_name);
 
-    $rezultat=@$polaczenie->query("SELECT ID_REZERWACJI, REZERWACJE.ID_LOTU, SKAD, DATA_ODLOTU, GODZINA_ODLOTU, DOKAD, DATA_PRZYLOTU, CZAS_PRZYLOTU, ILOSC_MIEJSC, STATUS, Uwagi FROM REZERWACJE, LOTY WHERE LOTY.ID_LOTU=REZERWACJE.ID_LOTU AND ID_KLIENTA=1 ORDER BY `REZERWACJE`.`ID_REZERWACJI` DESC");
+    $rezultat=@$polaczenie->query("SELECT ID_REZERWACJI, REZERWACJE.ID_LOTU, SKAD, DATA_ODLOTU, GODZINA_ODLOTU, DOKAD, DATA_PRZYLOTU, CZAS_PRZYLOTU, NUMER_MIEJSCA, STATUS, Uwagi FROM REZERWACJE, LOTY WHERE LOTY.ID_LOTU=REZERWACJE.ID_LOTU AND ID_KLIENTA=1 ORDER BY `REZERWACJE`.`ID_REZERWACJI` DESC");
     $ile=$rezultat->num_rows;
 
 echo<<<END
@@ -50,7 +50,7 @@ echo<<<END
     <h2>Historia rezerwacji</h2>
     <table border="1" cellpadding="10" cellspacing="1">
     <tr>
-    <td>Nr rezerwacji</td> <td>Nr lotu</td> <td>Miejsce startu</td> <td>Data startu</td> <td>Godzina startu</td> <td>Miejsce lądowania</td> <td>Data lądowania</td> <td>Godzina lądowania</td> <td>Liczba miejsc</td> <td>Status</td> <td>Uwagi</td> <td>Anuluj rezerwację</td>
+    <td>Nr rezerwacji</td> <td>Nr lotu</td> <td>Miejsce startu</td> <td>Data startu</td> <td>Godzina startu</td> <td>Miejsce lądowania</td> <td>Data lądowania</td> <td>Godzina lądowania</td> <td>Miejsce</td> <td>Status</td> <td>Uwagi</td> <td>Anuluj rezerwację</td>
     </tr>
 END;
 
@@ -65,13 +65,13 @@ END;
         $miejsce_ladowania = $row['DOKAD'];
         $data_ladowania = $row['DATA_PRZYLOTU'];
         $godzina_ladowania  = $row['CZAS_PRZYLOTU'];
-        $ilosc_miejsc = $row['ILOSC_MIEJSC'];
+        $numer_miejsca = $row['NUMER_MIEJSCA'];
         $status = $row['STATUS'];
         $uwagi= $row['Uwagi'];
 
 echo<<<END
     <tr>
-    <td>$rezerwacja</td> <td>$id</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$ilosc_miejsc</td> <td>$status</td> <td>$uwagi</td> <td><a href="anuluj.php">Anuluj</a></td>
+    <td>$rezerwacja</td> <td>$id</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$numer_miejsca</td> <td>$status</td> <td>$uwagi</td> <td><a href="anuluj.php">Anuluj</a></td>
     </tr>
 END;
     }
@@ -83,7 +83,7 @@ END;
     $polaczenie->close();
 ?>
 
-    <br/>[<a href="rezerwacja.php">Rezerwacja</a>]
+    <br/>[<a href="Rezerwacja.php">Rezerwacja</a>]
 
 </body>
 </html>

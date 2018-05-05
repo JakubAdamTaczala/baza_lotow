@@ -65,7 +65,7 @@ echo<<<END
     <h2>Propozycje</h2>
     <table border="1" cellpadding="10" cellspacing="1">
     <tr>
-    <td>Lot nr</td> <td>Linia lotnicza</td> <td>Miejsce startu</td> <td>Data startu</td> <td>Godzina startu</td> <td>Miejsce lądowania</td> <td>Data lądowania</td> <td>Godzina lądowania</td> <td>Wolne miejsca</td> <td>Uwagi</td> <td>Rezerwuj</td>
+    <td>Lot nr</td> <td>Linia lotnicza</td> <td>Miejsce startu</td> <td>Data startu</td> <td>Godzina startu</td> <td>Miejsce lądowania</td> <td>Data lądowania</td> <td>Godzina lądowania</td> <td>Uwagi</td> <td>Rezerwuj</td>
     </tr>
 END;
 
@@ -80,12 +80,11 @@ for ($i = 1; $i <= $ile; $i++)
     $miejsce_ladowania = $row['DOKAD'];
     $data_ladowania = $row['DATA_PRZYLOTU'];
     $godzina_ladowania  = $row['CZAS_PRZYLOTU'];
-    $wolne_miejsca = $row['WOLNE_MIEJSCA'];
     $uwagi= $row['Uwagi'];
 
     echo<<<END
     <tr>
-    <td>$id</td> <td>$linia_lotnicza</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$wolne_miejsca</td> <td>$uwagi</td> <td><a href="rezerwuj.php">Rezerwuj</a></td>
+    <td>$id</td> <td>$linia_lotnicza</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$uwagi</td> <td><a href="seats_choose.php?id=$id">Rezerwuj</a></td>
     </tr>
 END;
 }
@@ -96,6 +95,6 @@ END;
 
 $polaczenie->close();
 ?>
-
+[<a href="/user_s_account.php">Panel klienta</a>]
 </body>
 </html>
