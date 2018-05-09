@@ -13,6 +13,11 @@ if(!isset($_SESSION['zalogowany'])){
     header('Location: index.php');
     exit();
 }
+
+if($_SESSION['USER'] == "STAFF"){
+    header('Location: staff_s_account.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE HTML>

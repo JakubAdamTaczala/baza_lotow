@@ -11,7 +11,14 @@
     session_start();
 
     if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)){
-        header('Location: user_s_account.php');
+        if($_SESSION['USER'] == "USER"){
+            header('Location: user_s_account.php');
+        }else if($_SESSION['USER'] == "STAFF"){
+            header('Location: staff_s_account.php');
+        }else{
+            header('Location: google.com');
+        }
+        
         exit();
     }
 ?>

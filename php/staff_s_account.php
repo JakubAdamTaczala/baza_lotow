@@ -14,6 +14,11 @@
         header('Location: index.php');
         exit();
     }
+
+    if($_SESSION['USER'] == "USER"){
+        header('Location: user_s_account.php');
+        exit();
+    }
 ?>
 
 <!DOCTYPE HTML>

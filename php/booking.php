@@ -6,6 +6,11 @@ if(!isset($_SESSION['zalogowany'])){
     exit();
 }
 
+if($_SESSION['USER'] == "STAFF"){
+    header('Location: staff_s_account.php');
+    exit();
+}
+
 $idlotu = $_POST['idlotu'];
 $miejsce = $_POST['numer_miejsca'];
 $idklienta = $_SESSION['id'];
@@ -52,7 +57,8 @@ if($miejsce < $planeCap){
 		$row[$segment] = $seats;
 		$row = implode("", $row);
 		$polaczenie->query("UPDATE LOTY SET WOLNE_MIEJSCA='$row' WHERE ID_LOTU='$idlotu'");
-		$polaczenie->query("INSERT INTO REZERWACJE (ID_KLIENTA, ID_LOTU, ILOSC_MIEJSC, STATUS) VALUES ('$idklienta', '$idlotu', '$miejsce', 'REZERWACJA')");
+		$sql = "INSERT INTO REZERWACJE VALUES (NULL, '$idklienta', '$idlotu', '$miejsce', 'REZERWACJA')";
+		$polaczenie->query($sql);
 		$polaczenie->query("COMMIT");
 		$status = "POTWIERDZONA";
 		$comment = "Wybrane miejsce zostało zarezerwowane.";

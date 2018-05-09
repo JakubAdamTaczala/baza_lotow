@@ -14,6 +14,11 @@
         header('Location: index.php');
         exit();
     }
+
+    if($_SESSION['USER'] == "STAFF"){
+        header('Location: staff_s_account.php');
+        exit();
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -71,7 +76,7 @@ END;
 
 echo<<<END
     <tr>
-    <td>$rezerwacja</td> <td>$id</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$numer_miejsca</td> <td>$status</td> <td>$uwagi</td> <td><a href="anuluj.php">Anuluj</a></td>
+    <td>$rezerwacja</td> <td>$id</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$numer_miejsca</td> <td>$status</td> <td>$uwagi</td> <td><a href="anuluj.php?id=$rezerwacja">Anuluj</a></td>
     </tr>
 END;
     }
