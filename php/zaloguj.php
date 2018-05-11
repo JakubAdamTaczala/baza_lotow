@@ -46,6 +46,7 @@ try{
                     $_SESSION['imie'] = $wiersz['IMIE'];
                     $_SESSION['mail'] = $wiersz['MAIL'];
                     $_SESSION['telefon'] = $wiersz['TELEFON'];
+                    $_SESSION['USER'] = "USER";
 
                     unset($_SESSION['blad']);
 
@@ -54,12 +55,17 @@ try{
                     $mail=$_SESSION['mail'];
                     $rezultat=@$polaczenie->query("SELECT ID FROM KLIENCI WHERE MAIL='$mail'");
                     $ile_takich_maili = $rezultat->num_rows;
-                    if($ile_takich_maili>0) header('Location: user_s_account.php');
+                    if($ile_takich_maili>0){
+                        $_SESSION['USER'] = "USER";
+                        header('Location: user_s_account.php');
+                    } 
 
                     $rezultat=@$polaczenie->query("SELECT ID FROM PRACOWNICY WHERE MAIL='$mail'");
                     $ile_takich_maili = $rezultat->num_rows;
-                    if($ile_takich_maili>0) header('Location: staff_s_account.php');
-
+                    if($ile_takich_maili>0){
+                        $_SESSION['USER'] = "STAFF";
+                        header('Location: staff_s_account.php');
+                    }
                     $rezultat->close();
 
                 }

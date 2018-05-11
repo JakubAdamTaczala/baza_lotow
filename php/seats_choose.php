@@ -1,24 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Jakub Taczała
- * Date: 22.04.2018
- * Time: 15:31
- */
-?>
-
 <?php #Jeśli użytkownik zalogowany
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['zalogowany'])){
-        header('Location: index.php');
-        exit();
-    }
-
-    if($_SESSION['USER'] == "STAFF"){
-        header('Location: staff_s_account.php');
-        exit();
-    }
+if(!isset($_SESSION['zalogowany'])){
+    header('Location: index.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -26,8 +12,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <title>Rezerwacja biletów lotniczych</title>
+    <title>Wybór miejsca</title>
 
     <link rel="stylesheet" href="./style.css" type="text/css"/>
 </head>
@@ -41,17 +26,24 @@
         <li><a href="Rezerwacja.php">Szukaj lotu</a></li>
         <li><a href="logout.php">Wylogowanie</a></li>
     </ul></div>
-<div class = "content">
-    <h2>Moje dane</h2>
-
 <?php
-    echo '<p>Imię i nazwisko: '.$_SESSION['imie'].' '.$_SESSION['nazwisko'];
-    echo '<p>E-mail: '.$_SESSION['mail'].'<p/>';
-    echo '<p>Numer telefonu: '.$_SESSION['telefon'].'<p/>';
+
+$idlotu = $_GET['id'];
+
+echo<<<END
+<br>
+<form action="booking.php" method="post">
+	<label>Wpisz numer miejsca które chcesz zarezerwować:</label>
+	<input type="number" name="numer_miejsca" />
+	<input type="hidden" name="idlotu" value="$idlotu"/>
+	<input type="submit" value="Rezerwuj"/>
+</form>
+
+END;
 
 ?>
-    <h3>Edycja danych: TODO</h3>
 
-</div>
+[<a href="/Rezerwacja.php">Szukaj lotów</a>]
+[<a href="/user_s_account.php">Panel klienta</a>]
 </body>
 </html>

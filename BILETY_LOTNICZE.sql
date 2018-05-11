@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas generowania: 03 Maj 2018, 19:34
--- Wersja serwera: 10.1.31-MariaDB
--- Wersja PHP: 5.6.35
+-- Generation Time: May 05, 2018 at 11:51 PM
+-- Server version: 5.7.21-0ubuntu0.16.04.1
+-- PHP Version: 7.0.28-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `baza_lotow`
+-- Database: `BILETY_LOTNICZE`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `KLIENCI`
+-- Table structure for table `KLIENCI`
 --
 
 CREATE TABLE `KLIENCI` (
@@ -38,20 +36,16 @@ CREATE TABLE `KLIENCI` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `KLIENCI`
+-- Dumping data for table `KLIENCI`
 --
 
 INSERT INTO `KLIENCI` (`ID`, `NAZWISKO`, `IMIE`, `HASLO`, `MAIL`, `TELEFON`) VALUES
-(1, 'user', 'user', '$2y$10$FQwQYXaw3llGGw5rj2Z87ex63HlmV6E.cXB7Ivletbf3jDc4.K9gy', 'user@baza.pl', 999999999),
-(2, 'Adamczewski', 'Franciszek', 'haslo123', 'franicszek.adamczewski@baza.pl', 644634879),
-(3, 'Kwaśniewska', 'Anna', 'toJestHaslo', 'anna.kwasniewska@baza.pl', 845364879),
-(4, 'Rutkowska', 'Aleksandra', 'haselko', 'aleksandra.rutkowska.pl', 845000879),
-(5, 'test', 'test', '$2y$10$sMSR.i58dlkyflTwadQWW.d9XsOK/6CML5F227kF2YjOQHVoq7ZO.', 'test@baza.pl', 999111555);
+(1, 'user', 'user', '$2y$10$FQwQYXaw3llGGw5rj2Z87ex63HlmV6E.cXB7Ivletbf3jDc4.K9gy', 'user@baza.pl', 999999999);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `LINIE_LOTNICZE`
+-- Table structure for table `LINIE_LOTNICZE`
 --
 
 CREATE TABLE `LINIE_LOTNICZE` (
@@ -60,7 +54,7 @@ CREATE TABLE `LINIE_LOTNICZE` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `LINIE_LOTNICZE`
+-- Dumping data for table `LINIE_LOTNICZE`
 --
 
 INSERT INTO `LINIE_LOTNICZE` (`ID_LINII`, `NAZWA_LINII`) VALUES
@@ -75,7 +69,7 @@ INSERT INTO `LINIE_LOTNICZE` (`ID_LINII`, `NAZWA_LINII`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `LOTY`
+-- Table structure for table `LOTY`
 --
 
 CREATE TABLE `LOTY` (
@@ -87,22 +81,23 @@ CREATE TABLE `LOTY` (
   `DOKAD` text COLLATE utf8_polish_ci NOT NULL,
   `DATA_PRZYLOTU` date NOT NULL,
   `CZAS_PRZYLOTU` time NOT NULL,
-  `WOLNE_MIEJSCA` int(11) NOT NULL,
+  `WOLNE_MIEJSCA` text COLLATE utf8_polish_ci NOT NULL,
   `Uwagi` text COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `LOTY`
+-- Dumping data for table `LOTY`
 --
 
 INSERT INTO `LOTY` (`ID_LOTU`, `ID_SAMOLOTU`, `SKAD`, `DATA_ODLOTU`, `GODZINA_ODLOTU`, `DOKAD`, `DATA_PRZYLOTU`, `CZAS_PRZYLOTU`, `WOLNE_MIEJSCA`, `Uwagi`) VALUES
-(1, 6, 'Warszawa', '2018-07-02', '08:15:00', 'Wrocław', '2018-07-02', '09:25:00', 70, '-BRAK-'),
-(2, 16, 'Poznań', '2018-07-11', '03:40:00', 'Londyn', '2018-07-11', '00:28:00', 850, '-BRAK-');
+(1, 6, 'Warszawa', '2018-07-02', '08:15:00', 'Wrocław', '2018-07-02', '09:25:00', '000000000000000000', '-BRAK-'),
+(2, 16, 'Poznań', '2018-07-11', '03:40:00', 'Londyn', '2018-07-11', '00:28:00', '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', '-BRAK-'),
+(3, 21, 'Warszawa', '2018-05-24', '15:00:00', 'Wrocław', '2018-05-24', '16:00:00', '00', '-BRAK-');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `POJEMNOSC_SAMOLOTU`
+-- Table structure for table `POJEMNOSC_SAMOLOTU`
 --
 
 CREATE TABLE `POJEMNOSC_SAMOLOTU` (
@@ -112,20 +107,21 @@ CREATE TABLE `POJEMNOSC_SAMOLOTU` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `POJEMNOSC_SAMOLOTU`
+-- Dumping data for table `POJEMNOSC_SAMOLOTU`
 --
 
 INSERT INTO `POJEMNOSC_SAMOLOTU` (`ID_WERSJI_SAMOLOTU`, `NAZWA_WERSJI_SAMOLOTU`, `ILOSC_MIEJSC`) VALUES
-(154, 'Tupolew Tu150', 180),
+(154, 'Tupolew Tu154M', 180),
 (170, 'Embraer 270', 70),
-(380, 'Airbud A380', 853),
+(380, 'Airbus A380', 853),
+(500, 'Eclipse 500', 5),
 (737, 'Boeing 737', 146),
 (787, 'Boeing 787', 330);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `PRACOWNICY`
+-- Table structure for table `PRACOWNICY`
 --
 
 CREATE TABLE `PRACOWNICY` (
@@ -138,40 +134,30 @@ CREATE TABLE `PRACOWNICY` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `PRACOWNICY`
+-- Dumping data for table `PRACOWNICY`
 --
 
 INSERT INTO `PRACOWNICY` (`ID`, `NAZWISKO`, `IMIE`, `HASLO`, `MAIL`, `TELEFON`) VALUES
-(1, 'root', 'root', '$2y$10$0nrdLY0oa/9hHokLB48XQ.l6vc7.xbU091lY.Z3.563dipDOryI8K', 'root@lotnisko.pl', 111111111),
-(2, 'Bożydar', 'Natalia', 'password', 'natalia.bozydar@lotnisko.pl', 111222333);
+(1, 'root', 'root', '$2y$10$0nrdLY0oa/9hHokLB48XQ.l6vc7.xbU091lY.Z3.563dipDOryI8K', 'root@lotnisko.pl', 111111111);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `REZERWACJE`
+-- Table structure for table `REZERWACJE`
 --
 
 CREATE TABLE `REZERWACJE` (
   `ID_REZERWACJI` int(11) NOT NULL,
   `ID_KLIENTA` int(11) NOT NULL,
   `ID_LOTU` int(11) NOT NULL,
-  `ILOSC_MIEJSC` int(11) NOT NULL,
+  `NUMER_MIEJSCA` int(11) NOT NULL,
   `STATUS` text COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `REZERWACJE`
---
-
-INSERT INTO `REZERWACJE` (`ID_REZERWACJI`, `ID_KLIENTA`, `ID_LOTU`, `ILOSC_MIEJSC`, `STATUS`) VALUES
-(1, 1, 2, 2, 'REZERWACJA'),
-(2, 2, 2, 1, 'REZERWACJA'),
-(3, 1, 1, 1, 'ANULOWANO');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `SAMOLOTY`
+-- Table structure for table `SAMOLOTY`
 --
 
 CREATE TABLE `SAMOLOTY` (
@@ -181,7 +167,7 @@ CREATE TABLE `SAMOLOTY` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `SAMOLOTY`
+-- Dumping data for table `SAMOLOTY`
 --
 
 INSERT INTO `SAMOLOTY` (`ID_SAMOLOTU`, `ID_WERSJI_SAMOLOTU`, `ID_LINII`) VALUES
@@ -204,45 +190,46 @@ INSERT INTO `SAMOLOTY` (`ID_SAMOLOTU`, `ID_WERSJI_SAMOLOTU`, `ID_LINII`) VALUES
 (17, 737, 6),
 (18, 170, 6),
 (19, 154, 7),
-(20, 154, 7);
+(20, 154, 7),
+(21, 500, 4);
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
--- Indeksy dla tabeli `KLIENCI`
+-- Indexes for table `KLIENCI`
 --
 ALTER TABLE `KLIENCI`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indeksy dla tabeli `LINIE_LOTNICZE`
+-- Indexes for table `LINIE_LOTNICZE`
 --
 ALTER TABLE `LINIE_LOTNICZE`
   ADD PRIMARY KEY (`ID_LINII`);
 
 --
--- Indeksy dla tabeli `LOTY`
+-- Indexes for table `LOTY`
 --
 ALTER TABLE `LOTY`
   ADD PRIMARY KEY (`ID_LOTU`),
   ADD KEY `ID_SAMOLOTU` (`ID_SAMOLOTU`);
 
 --
--- Indeksy dla tabeli `POJEMNOSC_SAMOLOTU`
+-- Indexes for table `POJEMNOSC_SAMOLOTU`
 --
 ALTER TABLE `POJEMNOSC_SAMOLOTU`
   ADD PRIMARY KEY (`ID_WERSJI_SAMOLOTU`);
 
 --
--- Indeksy dla tabeli `PRACOWNICY`
+-- Indexes for table `PRACOWNICY`
 --
 ALTER TABLE `PRACOWNICY`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indeksy dla tabeli `REZERWACJE`
+-- Indexes for table `REZERWACJE`
 --
 ALTER TABLE `REZERWACJE`
   ADD PRIMARY KEY (`ID_REZERWACJI`),
@@ -250,7 +237,7 @@ ALTER TABLE `REZERWACJE`
   ADD KEY `ID_LOTU` (`ID_LOTU`);
 
 --
--- Indeksy dla tabeli `SAMOLOTY`
+-- Indexes for table `SAMOLOTY`
 --
 ALTER TABLE `SAMOLOTY`
   ADD PRIMARY KEY (`ID_SAMOLOTU`),
@@ -262,65 +249,58 @@ ALTER TABLE `SAMOLOTY`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `KLIENCI`
+-- AUTO_INCREMENT for table `KLIENCI`
 --
 ALTER TABLE `KLIENCI`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT dla tabeli `LINIE_LOTNICZE`
+-- AUTO_INCREMENT for table `LINIE_LOTNICZE`
 --
 ALTER TABLE `LINIE_LOTNICZE`
   MODIFY `ID_LINII` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
--- AUTO_INCREMENT dla tabeli `LOTY`
+-- AUTO_INCREMENT for table `LOTY`
 --
 ALTER TABLE `LOTY`
-  MODIFY `ID_LOTU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `ID_LOTU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT dla tabeli `PRACOWNICY`
+-- AUTO_INCREMENT for table `PRACOWNICY`
 --
 ALTER TABLE `PRACOWNICY`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT dla tabeli `REZERWACJE`
+-- AUTO_INCREMENT for table `REZERWACJE`
 --
 ALTER TABLE `REZERWACJE`
-  MODIFY `ID_REZERWACJI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `ID_REZERWACJI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT dla tabeli `SAMOLOTY`
+-- AUTO_INCREMENT for table `SAMOLOTY`
 --
 ALTER TABLE `SAMOLOTY`
-  MODIFY `ID_SAMOLOTU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID_SAMOLOTU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- Constraints for dumped tables
+--
 
 --
--- Ograniczenia dla zrzutów tabel
---
-
---
--- Ograniczenia dla tabeli `LOTY`
+-- Constraints for table `LOTY`
 --
 ALTER TABLE `LOTY`
   ADD CONSTRAINT `loty_ibfk_1` FOREIGN KEY (`ID_SAMOLOTU`) REFERENCES `SAMOLOTY` (`ID_SAMOLOTU`);
 
 --
--- Ograniczenia dla tabeli `REZERWACJE`
+-- Constraints for table `REZERWACJE`
 --
 ALTER TABLE `REZERWACJE`
   ADD CONSTRAINT `rezerwacje_ibfk_1` FOREIGN KEY (`ID_KLIENTA`) REFERENCES `KLIENCI` (`ID`),
   ADD CONSTRAINT `rezerwacje_ibfk_2` FOREIGN KEY (`ID_LOTU`) REFERENCES `LOTY` (`ID_LOTU`);
 
 --
--- Ograniczenia dla tabeli `SAMOLOTY`
+-- Constraints for table `SAMOLOTY`
 --
 ALTER TABLE `SAMOLOTY`
   ADD CONSTRAINT `samoloty_ibfk_1` FOREIGN KEY (`ID_WERSJI_SAMOLOTU`) REFERENCES `POJEMNOSC_SAMOLOTU` (`ID_WERSJI_SAMOLOTU`),
   ADD CONSTRAINT `samoloty_ibfk_2` FOREIGN KEY (`ID_LINII`) REFERENCES `LINIE_LOTNICZE` (`ID_LINII`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
