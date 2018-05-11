@@ -42,14 +42,18 @@
         <li><a href="logout.php">Wylogowanie</a></li>
     </ul></div>
 <div class = "content">
-    <h2>Moje dane</h2>
 
+    <div class="standardframe">
+    <h3>Moje dane</h3>
+<table>
 <?php
-    echo '<p>Imię i nazwisko: '.$_SESSION['imie'].' '.$_SESSION['nazwisko'];
-    echo '<p>E-mail: '.$_SESSION['mail'].'<p/>';
-    echo '<p>Numer telefonu: '.$_SESSION['telefon'].'<p/>';
+    echo '<tr><td>Imię i nazwisko: </td><td>'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'</td></tr>';
+    echo '<tr><td>E-mail: </td><td>'.$_SESSION['mail'].'</td></tr>';
+    echo '<tr><td>Numer telefonu: </td><td>'.$_SESSION['telefon'].'</td></tr>';
 
 ?>
+</table>
+</div>
     <h3>Edycja danych: TODO</h3>
 
 </div>

@@ -86,12 +86,17 @@
 		    $comment = "Nie masz uprawnień do tej rezerwacji";
 		}
 
+	if($status == "POWODZENIE"){
+		echo '<div class = "standardframe" style="background: #8cf49d">';
+	}else{
+		echo '<div class = "standardframe" style="background: #fb8787">';
+	}
 
   	?>
-
-  	<h2>Status anulacji: <?php echo $status ?></h2>
+  	
+  	<h3>Status anulacji: <?php echo $status ?></h3>
 	<p><?php echo $comment ?></p>
-
-	[<a href="/Rezerwacja.php">Szukaj lotów</a>][<a href="/user_s_account.php">Panel klienta</a>]
+	<p><a href = "history.php">Powrót</a></p>
+	</div>
 </body>
 </html>

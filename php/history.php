@@ -34,8 +34,9 @@
 
 <div class ="content">
 
-    <h2>Moje rezerwacje</h2>
 <div class="flightinfo">
+    <h2>Moje rezerwacje</h2>
+
 <?php
     ini_set("display_errors", 0);
     require_once 'connect.php';

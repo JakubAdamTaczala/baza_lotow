@@ -136,7 +136,7 @@ if(isset($_POST['imie'])){
 </head>
 
 <body>
-    <div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
+    <div class = "header" ><a href="index.php"><img src="logo.png" /></a><h1>System rezerwacji biletów lotniczych</h1></div>
 <?php
 if(isset($_SESSION['blad_bazy_usr'])){
     echo '<div class="error">'.$_SESSION['blad_bazy_usr'].'</div>';
@@ -152,7 +152,7 @@ if(isset($_SESSION['blad_bazy_dev'])){
 
 <div class="loginregisterform">
 
-    Rejestracja <br><br>
+    <h3>Rejestracja</h3>
 
 <form method="post">
 
