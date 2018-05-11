@@ -54,7 +54,7 @@
 
     <div class = "loginregisterform">
 
-    Logowanie<br/><br>
+    <h3>Logowanie</h3>
 
     <form action="zaloguj.php" method="post">
         E-mail: <br/><input type="text" name="login"/><br/>
@@ -72,6 +72,10 @@
     </form><br>
     <a href="rejestracja.php">Rejestracja</a>
     </div>
+    </div>
+
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
     </div>
 </body>
 </html>

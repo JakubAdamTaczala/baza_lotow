@@ -98,14 +98,26 @@ $polaczenie->close();
         <li><a href="Rezerwacja.php">Szukaj lotu</a></li>
         <li><a href="logout.php">Wylogowanie</a></li>
 </ul></div>
-
-<h2>Status rezerwacji: <?php echo $status ?></h2>
-<p><?php echo $comment ?></p>
-<?php
-	if($status == "NIEUDANA"){
-		echo "[<a href=/seats_choose.php?id=$idlotu>Powrót</a>]";
+	
+	<?php
+	if($status == "POTWIERDZONA"){
+		echo '<div class = "standardframe" style="background: #8cf49d">';
+	}else{
+		echo '<div class = "standardframe" style="background: #fb8787">';
 	}
-?>
-[<a href="/Rezerwacja.php">Szukaj lotów</a>][<a href="/user_s_account.php">Panel klienta</a>]
+
+  	?>
+
+	<h3>Status rezerwacji: <?php echo $status ?></h3>
+	<p><?php echo $comment ?></p>
+	<?php
+	if($status == "NIEUDANA"){
+		echo "<p><a href=/seats_choose.php?id=$idlotu>Powrót</a></p>";
+	}else{
+		echo "<p><a href=/history.php>Powrót</a></p>";
+	}
+	?>
+	</div>
+
 </body>
 </html>

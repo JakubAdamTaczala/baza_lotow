@@ -108,6 +108,10 @@ a:hover{
 	padding: 0;
 }
 
+.flightinfo h2{
+	text-align: center;
+}
+
 .flightinfo table {
 	width: 80%;
 	margin: auto;
@@ -128,4 +132,53 @@ a:hover{
 .flightinfo table, td{
 	border: 1px solid black;
 
+}
+
+.standardform {
+	margin: auto;
+	margin-top: 30px;
+	padding-bottom: 15px;
+	text-align: center;
+	border: 2px solid gray;
+	width: 30%;
+}
+
+.standardframe {
+	margin: auto;
+	margin-top: 30px;
+	padding-bottom: 15px;
+	border: 2px solid gray;
+	width: 35%;
+}
+
+.standardframe ol {
+	text-align: justify;
+	padding-right: 30px;
+}
+
+.standardframe h3 {
+	text-align: center;
+}
+
+.standardframe p {
+	text-align: center;
+}
+
+.standardframe table{
+	margin: auto;
+}
+.standardframe td{
+	padding-left: 10px;
+	margin: auto;
+	text-align: left;
+	border: 0px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: black;
+    text-align: center;
 }

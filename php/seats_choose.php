@@ -32,18 +32,20 @@ $idlotu = $_GET['id'];
 
 echo<<<END
 <br>
+<div class="standardframe">
+<h3>Rezerwacja miejsca</h3>
+<p>Lot nr $idlotu</p>
 <form action="booking.php" method="post">
-	<label>Wpisz numer miejsca które chcesz zarezerwować:</label>
+	<p>Numer miejsca:
 	<input type="number" name="numer_miejsca" />
 	<input type="hidden" name="idlotu" value="$idlotu"/>
 	<input type="submit" value="Rezerwuj"/>
+    </p>
 </form>
-
+</div>
 END;
 
 ?>
 
-[<a href="/Rezerwacja.php">Szukaj lotów</a>]
-[<a href="/user_s_account.php">Panel klienta</a>]
 </body>
 </html>
