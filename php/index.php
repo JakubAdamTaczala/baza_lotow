@@ -45,11 +45,18 @@
         unset($_SESSION['blad_bazy_dev']);
     }
     ?>
+    <div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
+    <div class = "content">
+<br/>
+    
 
-<br/><a href="rejestracja.php">Rejestracja</a><br/><br/>
+    <h2>Witamy na stronie Systemu rezerwacji biletów lotniczych!</h2>
+
+    <div class = "loginregisterform">
+
+    Logowanie<br/><br>
 
     <form action="zaloguj.php" method="post">
-
         E-mail: <br/><input type="text" name="login"/><br/>
         Hasło: <br/><input type="password" name="haslo"/><br/>
 
@@ -62,7 +69,9 @@
 
         <br/><input type="submit" value="Zaloguj się"/>
 
-    </form>
-
+    </form><br>
+    <a href="rejestracja.php">Rejestracja</a>
+    </div>
+    </div>
 </body>
 </html>

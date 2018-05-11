@@ -136,6 +136,7 @@ if(isset($_POST['imie'])){
 </head>
 
 <body>
+    <div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
 <?php
 if(isset($_SESSION['blad_bazy_usr'])){
     echo '<div class="error">'.$_SESSION['blad_bazy_usr'].'</div>';
@@ -147,6 +148,11 @@ if(isset($_SESSION['blad_bazy_dev'])){
     unset($_SESSION['blad_bazy_dev']);
 }
 ?>
+
+
+<div class="loginregisterform">
+
+    Rejestracja <br><br>
 
 <form method="post">
 
@@ -199,7 +205,7 @@ if(isset($_SESSION['blad_bazy_dev'])){
 
     <label>
         <input type="checkbox" name="regulamin"/> Akceptuję <a href="regulamin.html">regulamin</a><br/>
-        <label/>
+    </label>
         <?php
         if (isset($_SESSION['e_regulamin']))
         {
@@ -211,5 +217,7 @@ if(isset($_SESSION['blad_bazy_dev'])){
         <br/><input type="submit" value="Zarejestruj się"/>
 
 </form>
+
+</div>
 </body>
 </html>

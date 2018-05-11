@@ -32,12 +32,13 @@
 </head>
 
 <body>
-<?php
-    echo '<p>Witaj '.$_SESSION['imie'].' '.$_SESSION['nazwisko'].' [<a href="logout.php">Wyloguj się!</a>]<p/>';
-    echo '<p>E-mail: '.$_SESSION['mail'].'<p/>';
-    echo '<p>Tele.: '.$_SESSION['telefon'].'<p/>';
-    echo "to jest panel staff";
-
-?>
+    <div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
+    <div class = "navbar" ><ul>
+        <li><p>Witaj <?php echo $_SESSION['imie'].' '.$_SESSION['nazwisko'] ?>!</p></li>
+        <li><a href="user_s_account.php">Panel klienta</a></li>
+        <li><a href="history.php">Moje rezerwacje</a></li>
+        <li><a href="Rezerwacja.php">Szukaj lotu</a></li>
+        <li><a href="logout.php">Wylogowanie</a></li>
+    </ul></div>
 </body>
 </html>
