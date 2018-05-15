@@ -52,13 +52,15 @@ $rezultat=@$polaczenie->query("SELECT NAZWA_LINII, ID_LOTU, SKAD, DATA_ODLOTU, G
 $ile=$rezultat->num_rows;
 
 echo<<<END
-        <div class="standardform">
+    <div class="standardform">
     <h3>Szukaj lotu</h3>
     <form action="Rezerwacja.php" method="post">
-        Miasto startu:      <br><input type="text" name="m_startu"/> <br>
-        Miasto lądowania:   <br><input type="text" name="m_ladowania"/><br>
-        Start dnia:         <br><input type="date" name="m_ladowania"/><br>
-        Lądowanie dnia:     <br><input type="date" name="m_ladowania"/> <br>
+    <table>
+        <tr><td>Miasto startu:      </td><td><input type="text" name="m_startu"/></td></tr>
+        <tr><td>Miasto lądowania:   </td><td><input type="text" name="m_ladowania"/></td></tr>
+        <tr><td>Start dnia:         </td><td><input type="date" name="m_ladowania"/></td></tr>
+        <tr><td>Lądowanie dnia:     </td><td><input type="date" name="m_ladowania"/></td></tr>
+       </table>
     <br/><input type="submit" value="Szukaj"/>
 
     </form>
@@ -87,10 +89,15 @@ for ($i = 1; $i <= $ile; $i++)
     $godzina_ladowania  = $row['CZAS_PRZYLOTU'];
     $uwagi= $row['Uwagi'];
 
+    $link = "<a href='seats_choose.php?id=$id'>Rezerwuj</a>";
+
+    if($uwagi == "ODWOŁANY")
+    	$link = " --- ";
+
     echo<<<END
 
     <tr>
-    <td>$id</td> <td>$linia_lotnicza</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$uwagi</td> <td><a href="seats_choose.php?id=$id">Rezerwuj</a></td>
+    <td>$id</td> <td>$linia_lotnicza</td> <td>$miejsce_startu</td> <td>$data_startu</td> <td>$godzina_startu</td> <td>$miejsce_ladowania</td> <td>$data_ladowania</td> <td>$godzina_ladowania</td> <td>$uwagi</td> <td>$link</td>
     </tr>
 END;
 }
