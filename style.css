@@ -1,0 +1,196 @@
+body {
+	font-family: Gill Sans Extrabold, sans-serif;
+	color: #373737
+	padding: 0;
+  	margin: 0;
+  	background-color: #f4f4f4;
+}
+
+.error {
+    color:red;
+    margin-top: 5x;
+    margin-bottom: 7px;
+}
+
+a:link{
+    color: blue;
+}
+
+a:visited{
+    color: blue;
+}
+
+a:hover{
+    color: deepskyblue;
+}
+
+.header{
+	background: linear-gradient(to bottom right, #77c9d4, #57bc90 );
+	width:100%;
+	height: 100px;
+	margin-top: 0px;
+	border-bottom: 2px solid #ff6700;
+}
+
+.header img {
+    width: 100px;
+    padding-left: 20px;
+    float: left;
+}
+
+.header h1 {
+	display: inline-block;
+	padding-left: 40px;
+	padding-top: 10px;
+}
+
+.navbar {
+	background-color: #dfdfdf;
+	width:100%;
+	height: 40px;
+
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 20px;
+    padding-top: 0px;
+    overflow: hidden; 
+}
+
+.navbar li {
+	float: left;
+}
+
+.navbar li p {
+	display: block;
+    color: black;
+    margin: 0;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.navbar li a {
+	display: block;
+    color: black;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: #015249;
+    color: white;
+}
+
+.content {
+	
+}
+
+.content h2 {
+	margin-left: 20px;
+}
+
+.loginregisterform {
+	margin: auto;
+	margin-top: 30px;
+	padding: 5px;
+	text-align: center;
+	border: 2px solid gray;
+	width: 30%;
+	background-color: #b6d8c9;
+}
+
+.flightinfo{
+	margin: 0;
+	padding: 0;
+}
+
+.flightinfo h2{
+	text-align: center;
+}
+
+.flightinfo table {
+	width: 80%;
+	margin: auto;
+	border-collapse: collapse;
+	background-color: #f4f4f4;
+	overflow-x:auto;
+}
+
+.flightinfo table tbody tr:hover {
+	background-color: #c7d8c6;
+}
+
+.flightinfo table td {
+	text-align: center;
+	padding: 7px;
+}
+
+.flightinfo table, td{
+	border: 1px solid black;
+
+}
+
+.standardform {
+	margin: auto;
+	margin-top: 30px;
+	padding-bottom: 15px;
+	text-align: center;
+	border: 2px solid gray;
+	width: 30%;
+}
+
+.standardform table{
+	margin: 0 auto;
+}
+
+.standardform td {
+	text-align: left;
+	border: 0px solid;
+}
+.standardform input{
+	width: 150px;
+}
+
+.standardframe {
+	margin: auto;
+	margin-top: 30px;
+	padding-bottom: 15px;
+	border: 2px solid gray;
+	width: 35%;
+}
+
+.standardframe ol {
+	text-align: justify;
+	padding-right: 30px;
+}
+
+.standardframe h3 {
+	text-align: center;
+}
+
+.standardframe p {
+	text-align: center;
+}
+
+.standardframe table{
+	margin: auto;
+}
+.standardframe td{
+	padding-left: 10px;
+	margin: auto;
+	text-align: left;
+	border: 0px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: black;
+    text-align: center;
+}
