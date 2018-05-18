@@ -11,7 +11,7 @@
 
     $host='localhost';
     $db_user='root';
-    $db_password='admin';
+    $db_password='';
     $db_name='BILETY_LOTNICZE';
 
 ?>

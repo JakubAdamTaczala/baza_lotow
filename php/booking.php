@@ -6,6 +6,11 @@ if(!isset($_SESSION['zalogowany'])){
     exit();
 }
 
+if($_SESSION['USER'] == "STAFF"){
+    header('Location: staff_s_account.php');
+    exit();
+}
+
 $idlotu = $_POST['idlotu'];
 $miejsce = $_POST['numer_miejsca'];
 $idklienta = $_SESSION['id'];
@@ -21,55 +26,61 @@ $polaczenie->query("START TRANSACTION");
 $rezultat=$polaczenie->query("SELECT * FROM LOTY WHERE ID_LOTU='$idlotu' FOR UPDATE");
 $rowAll = mysqli_fetch_assoc($rezultat);
 
-$planeID = $rowAll['ID_SAMOLOTU'];
-$planeID = intval($planeID);
-
-$rezultat2 = $polaczenie->query("SELECT ID_WERSJI_SAMOLOTU FROM SAMOLOTY WHERE ID_SAMOLOTU = '$planeID'");
-$rowVer = mysqli_fetch_assoc($rezultat2);
-$planeVer = $rowVer['ID_WERSJI_SAMOLOTU'];
-$planeVer = intval($planeVer);
-
-$rezultat3 = $polaczenie->query("SELECT ILOSC_MIEJSC FROM POJEMNOSC_SAMOLOTU WHERE ID_WERSJI_SAMOLOTU = '$planeVer'");
-$rowCap = mysqli_fetch_assoc($rezultat3);
-$planeCap = $rowCap['ILOSC_MIEJSC'];
-$planeCap = intval($planeCap);
-
-if($miejsce < $planeCap){
-	$row = $rowAll['WOLNE_MIEJSCA'];
-	$row = str_split($row);
-	$rowLen = count($row);
-	$segment = floor($miejsce/4.0);
-	$seats = $row[$segment];
-	$seats = base_convert ($seats, 16, 2);
-	while(strlen($seats) < 4)
-		$seats = "0".$seats;
-	$seats = str_split($seats);
-	$pozycja = $miejsce%4;
-	if($seats[$pozycja] == "0"){
-		$seats[$pozycja] = "1";
-		$seats = implode("", $seats);
-		$seats = base_convert ($seats, 2, 16);
-		$row[$segment] = $seats;
-		$row = implode("", $row);
-		$polaczenie->query("UPDATE LOTY SET WOLNE_MIEJSCA='$row' WHERE ID_LOTU='$idlotu'");
-		$polaczenie->query("INSERT INTO REZERWACJE (ID_KLIENTA, ID_LOTU, ILOSC_MIEJSC, STATUS) VALUES ('$idklienta', '$idlotu', '$miejsce', 'REZERWACJA')");
-		$polaczenie->query("COMMIT");
-		$status = "POTWIERDZONA";
-		$comment = "Wybrane miejsce zostało zarezerwowane.";
-	}else{
-		//miejsce zajęte
-		$polaczenie->query("ROLLBACK");
-		$status = "NIEUDANA";
-		$comment = "Wybrane miejsce jest już zajęte.";
-	}
-}else{
-	//miejsce spoza zakresu
+if($rowAll['Uwagi'] == "ODWOŁANY" || $rezultat->num_rows == 0){
 	$polaczenie->query("ROLLBACK");
 	$status = "NIEUDANA";
-	$comment = "Wybrane miejsce nie istnieje.";
+	$comment = "Wybrany lot nie istnieje.";
+}else{
+	$planeID = $rowAll['ID_SAMOLOTU'];
+	$planeID = intval($planeID);
+
+	$rezultat2 = $polaczenie->query("SELECT ID_WERSJI_SAMOLOTU FROM SAMOLOTY WHERE ID_SAMOLOTU = '$planeID'");
+	$rowVer = mysqli_fetch_assoc($rezultat2);
+	$planeVer = $rowVer['ID_WERSJI_SAMOLOTU'];
+	$planeVer = intval($planeVer);
+
+	$rezultat3 = $polaczenie->query("SELECT ILOSC_MIEJSC FROM POJEMNOSC_SAMOLOTU WHERE ID_WERSJI_SAMOLOTU = '$planeVer'");
+	$rowCap = mysqli_fetch_assoc($rezultat3);
+	$planeCap = $rowCap['ILOSC_MIEJSC'];
+	$planeCap = intval($planeCap);
+
+	if($miejsce < $planeCap){
+		$row = $rowAll['WOLNE_MIEJSCA'];
+		$row = str_split($row);
+		$rowLen = count($row);
+		$segment = floor($miejsce/4.0);
+		$seats = $row[$segment];
+		$seats = base_convert ($seats, 16, 2);
+		while(strlen($seats) < 4)
+			$seats = "0".$seats;
+		$seats = str_split($seats);
+		$pozycja = $miejsce%4;
+		if($seats[$pozycja] == "0"){
+			$seats[$pozycja] = "1";
+			$seats = implode("", $seats);
+			$seats = base_convert ($seats, 2, 16);
+			$row[$segment] = $seats;
+			$row = implode("", $row);
+			$polaczenie->query("UPDATE LOTY SET WOLNE_MIEJSCA='$row' WHERE ID_LOTU='$idlotu'");
+			$sql = "INSERT INTO REZERWACJE VALUES (NULL, '$idklienta', '$idlotu', '$miejsce', 'REZERWACJA')";
+			$polaczenie->query($sql);
+			$polaczenie->query("COMMIT");
+			$status = "POTWIERDZONA";
+			$comment = "Wybrane miejsce zostało zarezerwowane.";
+		}else{
+			//miejsce zajęte
+			$polaczenie->query("ROLLBACK");
+			$status = "NIEUDANA";
+			$comment = "Wybrane miejsce jest już zajęte.";
+		}
+	}else{
+		//miejsce spoza zakresu
+		$polaczenie->query("ROLLBACK");
+		$status = "NIEUDANA";
+		$comment = "Wybrane miejsce nie istnieje.";
+	}
+
 }
-
-
 $polaczenie->close();
 ?>
 <!DOCTYPE HTML>
@@ -83,14 +94,35 @@ $polaczenie->close();
 </head>
 
 <body>
+<div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
 
-<h2>Status rezerwacji: <?php echo $status ?></h2>
-<p><?php echo $comment ?></p>
-<?php
-	if($status == "NIEUDANA"){
-		echo "[<a href=/seats_choose.php?id=$idlotu>Powrót</a>]";
+<div class = "navbar" ><ul>
+        <li><p>Witaj <?php echo $_SESSION['imie'].' '.$_SESSION['nazwisko'] ?>!</p></li>
+        <li><a href="user_s_account.php">Panel klienta</a></li>
+        <li><a href="history.php">Moje rezerwacje</a></li>
+        <li><a href="Rezerwacja.php">Szukaj lotu</a></li>
+        <li><a href="logout.php">Wylogowanie</a></li>
+</ul></div>
+	
+	<?php
+	if($status == "POTWIERDZONA"){
+		echo '<div class = "standardframe" style="background: #8cf49d">';
+	}else{
+		echo '<div class = "standardframe" style="background: #fb8787">';
 	}
-?>
-[<a href="/Rezerwacja.php">Szukaj lotów</a>][<a href="/user_s_account.php">Panel klienta</a>]
+
+  	?>
+
+	<h3>Status rezerwacji: <?php echo $status ?></h3>
+	<p><?php echo $comment ?></p>
+	<?php
+	if($status == "NIEUDANA"){
+		echo "<p><a href=seats_choose.php?id=$idlotu>Powrót</a></p>";
+	}else{
+		echo "<p><a href=history.php>Powrót</a></p>";
+	}
+	?>
+	</div>
+
 </body>
 </html>

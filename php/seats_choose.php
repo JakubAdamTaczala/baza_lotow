@@ -5,6 +5,11 @@ if(!isset($_SESSION['zalogowany'])){
     header('Location: index.php');
     exit();
 }
+
+    if($_SESSION['USER'] == "STAFF"){
+        header('Location: staff_s_account.php');
+        exit();
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -18,45 +23,34 @@ if(!isset($_SESSION['zalogowany'])){
 </head>
 
 <body>
-
+    <div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
+    <div class = "navbar" ><ul>
+        <li><p>Witaj <?php echo $_SESSION['imie'].' '.$_SESSION['nazwisko'] ?>!</p></li>
+        <li><a href="user_s_account.php">Panel klienta</a></li>
+        <li><a href="history.php">Moje rezerwacje</a></li>
+        <li><a href="Rezerwacja.php">Szukaj lotu</a></li>
+        <li><a href="logout.php">Wylogowanie</a></li>
+    </ul></div>
 <?php
-echo '<p>Witaj '.$_SESSION['imie'].' '.$_SESSION['nazwisko'].' [<a href="logout.php">Wyloguj się!</a>]<p/>';
-echo '<p>E-mail: '.$_SESSION['mail'].'<p/>';
-echo '<p>Tele.: '.$_SESSION['telefon'].'<p/>';
 
-?>
-
-
-<?php
-ini_set("display_errors", 1);
-require_once 'connect.php';
-$polaczenie = mysqli_connect($host, $db_user, $db_password);
-mysqli_query($polaczenie, "SET CHARSET utf8");
-mysqli_query($polaczenie, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
-mysqli_select_db($polaczenie, $db_name);
 $idlotu = $_GET['id'];
-$rezultat=$polaczenie->query("SELECT WOLNE_MIEJSCA FROM LOTY WHERE ID_LOTU='$idlotu'");
-$row = mysqli_fetch_assoc($rezultat);
-
-$zera = "";
-while(strlen($zera) < 18)
-    $zera = "0".$zera;
-echo $zera;
 
 echo<<<END
 <br>
+<div class="standardframe">
+<h3>Rezerwacja miejsca</h3>
+<p>Lot nr $idlotu</p>
 <form action="booking.php" method="post">
-	<label>Wpisz numer miejsca które chcesz zarezerwować:</label>
+	<p>Numer miejsca:
 	<input type="number" name="numer_miejsca" />
 	<input type="hidden" name="idlotu" value="$idlotu"/>
 	<input type="submit" value="Rezerwuj"/>
+    </p>
 </form>
-
+</div>
 END;
-$polaczenie->close();
+
 ?>
 
-[<a href="/Rezerwacja.php">Szukaj lotów</a>]
-[<a href="/user_s_account.php">Panel klienta</a>]
 </body>
 </html>

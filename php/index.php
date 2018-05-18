@@ -11,7 +11,14 @@
     session_start();
 
     if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)){
-        header('Location: user_s_account.php');
+        if($_SESSION['USER'] == "USER"){
+            header('Location: user_s_account.php');
+        }else if($_SESSION['USER'] == "STAFF"){
+            header('Location: staff_s_account.php');
+        }else{
+            header('Location: google.com');
+        }
+        
         exit();
     }
 ?>
@@ -38,11 +45,18 @@
         unset($_SESSION['blad_bazy_dev']);
     }
     ?>
+    <div class = "header" ><img src="logo.png" /><h1>System rezerwacji biletów lotniczych</h1></div>
+    <div class = "content">
+<br/>
+    
 
-<br/><a href="rejestracja.php">Rejestracja</a><br/><br/>
+    <h2>Witamy na stronie Systemu rezerwacji biletów lotniczych!</h2>
+
+    <div class = "loginregisterform">
+
+    <h3>Logowanie</h3>
 
     <form action="zaloguj.php" method="post">
-
         E-mail: <br/><input type="text" name="login"/><br/>
         Hasło: <br/><input type="password" name="haslo"/><br/>
 
@@ -55,7 +69,13 @@
 
         <br/><input type="submit" value="Zaloguj się"/>
 
-    </form>
+    </form><br>
+    <a href="rejestracja.php">Rejestracja</a>
+    </div>
+    </div>
 
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>
