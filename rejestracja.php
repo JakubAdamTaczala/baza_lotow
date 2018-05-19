@@ -12,16 +12,9 @@
 session_start();
 
 if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)){
-    if($_SESSION['USER'] == "USER"){
-        header('Location: user_s_account.php');
-    }else if($_SESSION['USER'] == "STAFF"){
-        header('Location: staff_s_account.php');
-    }else{
-        header('Location: google.com');
-    }
+    header('Location: user_s_account.php');
     exit();
 }
-
 
 if(isset($_POST['imie'])){
     $wszystko_OK=true; //zalozenie, iz rejestracja sie powiodla
@@ -136,7 +129,6 @@ if(isset($_POST['imie'])){
 </head>
 
 <body>
-    <div class = "header" ><a href="index.php"><img src="logo.png" /></a><h1>System rezerwacji biletów lotniczych</h1></div>
 <?php
 if(isset($_SESSION['blad_bazy_usr'])){
     echo '<div class="error">'.$_SESSION['blad_bazy_usr'].'</div>';
@@ -148,11 +140,6 @@ if(isset($_SESSION['blad_bazy_dev'])){
     unset($_SESSION['blad_bazy_dev']);
 }
 ?>
-
-
-<div class="loginregisterform">
-
-    <h3>Rejestracja</h3>
 
 <form method="post">
 
@@ -205,7 +192,7 @@ if(isset($_SESSION['blad_bazy_dev'])){
 
     <label>
         <input type="checkbox" name="regulamin"/> Akceptuję <a href="regulamin.html">regulamin</a><br/>
-    </label>
+        <label/>
         <?php
         if (isset($_SESSION['e_regulamin']))
         {
@@ -217,7 +204,5 @@ if(isset($_SESSION['blad_bazy_dev'])){
         <br/><input type="submit" value="Zarejestruj się"/>
 
 </form>
-
-</div>
 </body>
 </html>
