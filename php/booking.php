@@ -117,9 +117,9 @@ $polaczenie->close();
 	<p><?php echo $comment ?></p>
 	<?php
 	if($status == "NIEUDANA"){
-		echo "<p><a href=/seats_choose.php?id=$idlotu>Powrót</a></p>";
+		echo "<p><a href=seats_choose.php?id=$idlotu>Powrót</a></p>";
 	}else{
-		echo "<p><a href=/history.php>Powrót</a></p>";
+		echo "<p><a href=history.php>Powrót</a></p>";
 	}
 	?>
 	</div>
