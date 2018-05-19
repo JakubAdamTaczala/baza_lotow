@@ -12,6 +12,6 @@
     $host='localhost';
     $db_user='root';
     $db_password='';
-    $db_name='baza_lotow';
+    $db_name='BILETY_LOTNICZE';
 
 ?>

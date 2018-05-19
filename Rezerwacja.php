@@ -56,7 +56,7 @@ echo<<<END
         <tr><td>Miasto startu:      </td><td><input type="text" name="m_startu"/></td></tr>
         <tr><td>Miasto lądowania:   </td><td><input type="text" name="m_ladowania"/></td></tr>
         <tr><td><input type="radio" name="kierunek" value="odlot">Start</td><td><input type="radio" name="kierunek" value="przylot">Lądowanie</td></tr>
-        <tr><td>Dzień:              </td><td><input type="date" name="dzien"/></td></tr>
+        <tr><td>Dnia:              </td><td><input type="date" name="dzien"/></td></tr>
        </table>
     <br/><input type="submit" value="Szukaj"/>
 

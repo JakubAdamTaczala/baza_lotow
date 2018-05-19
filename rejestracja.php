@@ -12,9 +12,16 @@
 session_start();
 
 if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)){
-    header('Location: user_s_account.php');
+    if($_SESSION['USER'] == "USER"){
+        header('Location: user_s_account.php');
+    }else if($_SESSION['USER'] == "STAFF"){
+        header('Location: staff_s_account.php');
+    }else{
+        header('Location: google.com');
+    }
     exit();
 }
+
 
 if(isset($_POST['imie'])){
     $wszystko_OK=true; //zalozenie, iz rejestracja sie powiodla
@@ -55,13 +62,13 @@ if(isset($_POST['imie'])){
     if ((strlen($haslo1)<8) || (strlen($haslo1)>26))
     {
         $wszystko_OK=false;
-        $_SESSION['e_haslo']="Hasło musi posiadać od 8 do 26 znaków.";
+        $_SESSION['e_haslo1']="Hasło musi posiadać od 8 do 26 znaków.";
     }
 
     if ($haslo1!=$haslo2)
     {
         $wszystko_OK=false;
-        $_SESSION['e_haslo']="Podane hasła nie są identyczne.";
+        $_SESSION['e_haslo2']="Podane hasła nie są identyczne.";
     }
 
     $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT); //echo $haslo_hash; exit();
@@ -129,6 +136,7 @@ if(isset($_POST['imie'])){
 </head>
 
 <body>
+    <div class = "header" ><a href="index.php"><img src="logo.png" /></a><h1>System rezerwacji biletów lotniczych</h1></div>
 <?php
 if(isset($_SESSION['blad_bazy_usr'])){
     echo '<div class="error">'.$_SESSION['blad_bazy_usr'].'</div>';
@@ -140,6 +148,11 @@ if(isset($_SESSION['blad_bazy_dev'])){
     unset($_SESSION['blad_bazy_dev']);
 }
 ?>
+
+
+<div class="loginregisterform">
+
+    <h3>Rejestracja</h3>
 
 <form method="post">
 
@@ -181,18 +194,25 @@ if(isset($_SESSION['blad_bazy_dev'])){
 
     Hasło: <br/><input type="password" name="haslo1"/><br/>
     <?php
-    if (isset($_SESSION['e_haslo']))
+    if (isset($_SESSION['e_haslo1']))
     {
-        echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
-        unset($_SESSION['e_haslo']);
+        echo '<div class="error">'.$_SESSION['e_haslo1'].'</div>';
+        unset($_SESSION['e_haslo1']);
     }
     ?>
 
     Powtórz hasło: <br/><input type="password" name="haslo2"/><br/>
+    <?php
+    if (isset($_SESSION['e_haslo2']))
+    {
+        echo '<div class="error">'.$_SESSION['e_haslo2'].'</div>';
+        unset($_SESSION['e_haslo2']);
+    }
+    ?>
 
     <label>
         <input type="checkbox" name="regulamin"/> Akceptuję <a href="regulamin.html">regulamin</a><br/>
-        <label/>
+    </label>
         <?php
         if (isset($_SESSION['e_regulamin']))
         {
@@ -204,5 +224,7 @@ if(isset($_SESSION['blad_bazy_dev'])){
         <br/><input type="submit" value="Zarejestruj się"/>
 
 </form>
+
+</div>
 </body>
 </html>
