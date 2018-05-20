@@ -35,7 +35,7 @@ if(isset($_POST['imie'])){
 
     $nazwisko=$_POST['nazwisko'];
     //sprawdzenie czy jest nazwisko, min 2 znaki
-    if (strlen($imie)<2){
+    if (strlen($nazwisko)<2){
         $wszystko_OK=false;
         $_SESSION['e_nazwisko']="Nazwisko musi posiadać przynajmniej dwa znaki.";
     }

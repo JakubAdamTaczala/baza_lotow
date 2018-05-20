@@ -119,9 +119,8 @@ if(isset($_POST['s_haslo'])) {
 <div class = "content">
 
     <div class="standardframe">
-        <center>
         <h3>Zmiana hasła</h3>
-
+        <center>
         <form method="post">
 
             Obecne hasło: <br/><input type="password" name="s_haslo"/><br/>
@@ -155,7 +154,6 @@ if(isset($_POST['s_haslo'])) {
 
         </form>
         </center>
-
     </div>
 </div>
 </body>
