@@ -122,5 +122,9 @@ END;
 $polaczenie->close();
 ?>
 </div>
+<br><br><br><br>
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>

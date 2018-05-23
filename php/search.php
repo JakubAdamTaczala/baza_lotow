@@ -33,6 +33,10 @@ if($_SESSION['USER'] == "USER"){
             border-bottom: 2px solid #be1bc5;
             background: linear-gradient(to bottom right, #77c9d4, #cb6fff );
         }
+
+        .footer {
+            background: linear-gradient(to bottom right, #77c9d4, #cb6fff );
+        }
     </style>
 </head>
 
@@ -41,7 +45,7 @@ if($_SESSION['USER'] == "USER"){
 <div class = "navbar" ><ul>
         <li><p>Witaj <?php echo $_SESSION['imie'].' '.$_SESSION['nazwisko'] ?>!</p></li>
         <li><a href="staff_s_account.php">Podgląd lotów</a></li>
-        <li><a href="add_flight.php">Doddaj lot</a></li>
+        <li><a href="add_flight.php">Dodaj lot</a></li>
         <li><a href="search.php">Szukaj lotu</a></li>
         <li><a href="logout.php">Wylogowanie</a></li>
     </ul></div>
@@ -74,7 +78,7 @@ if($_SESSION['USER'] == "USER"){
     <table>
     <thead>
     <tr>
-    <td>Lot nr</td> <td>Linia lotnicza</td> <td>Miejsce startu</td> <td>Data startu</td> <td>Godzina startu</td> <td>Miejsce lądowania</td> <td>Data lądowania</td> <td>Godzina lądowania</td> <td>Uwagi</td> <td>Rezerwuj</td>
+    <td>Lot nr</td> <td>Linia lotnicza</td> <td>Miejsce startu</td> <td>Data startu</td> <td>Godzina startu</td> <td>Miejsce lądowania</td> <td>Data lądowania</td> <td>Godzina lądowania</td> <td>Uwagi</td> <td>Zarządzaj</td>
     </tr>
     </thead>
     <tbody>
@@ -139,5 +143,9 @@ END;
     $polaczenie->close();
     ?>
 </div>
+<br><br><br><br>
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>

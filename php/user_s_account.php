@@ -65,4 +65,7 @@
     </div>
 </div>
 </body>
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </html>

@@ -31,53 +31,112 @@ if($rowAll['Uwagi'] == "ODWOŁANY" || $rezultat->num_rows == 0){
 	$status = "NIEUDANA";
 	$comment = "Wybrany lot nie istnieje.";
 }else{
-	$planeID = $rowAll['ID_SAMOLOTU'];
-	$planeID = intval($planeID);
 
-	$rezultat2 = $polaczenie->query("SELECT ID_WERSJI_SAMOLOTU FROM SAMOLOTY WHERE ID_SAMOLOTU = '$planeID'");
-	$rowVer = mysqli_fetch_assoc($rezultat2);
-	$planeVer = $rowVer['ID_WERSJI_SAMOLOTU'];
-	$planeVer = intval($planeVer);
+		$planeID = $rowAll['ID_SAMOLOTU'];
+		$planeID = intval($planeID);
 
-	$rezultat3 = $polaczenie->query("SELECT ILOSC_MIEJSC FROM POJEMNOSC_SAMOLOTU WHERE ID_WERSJI_SAMOLOTU = '$planeVer'");
-	$rowCap = mysqli_fetch_assoc($rezultat3);
-	$planeCap = $rowCap['ILOSC_MIEJSC'];
-	$planeCap = intval($planeCap);
+		$rezultat2 = $polaczenie->query("SELECT ID_WERSJI_SAMOLOTU FROM SAMOLOTY WHERE ID_SAMOLOTU = '$planeID'");
+		$rowVer = mysqli_fetch_assoc($rezultat2);
+		$planeVer = $rowVer['ID_WERSJI_SAMOLOTU'];
+		$planeVer = intval($planeVer);
 
-	if($miejsce < $planeCap){
-		$row = $rowAll['WOLNE_MIEJSCA'];
-		$row = str_split($row);
-		$rowLen = count($row);
-		$segment = floor($miejsce/4.0);
-		$seats = $row[$segment];
-		$seats = base_convert ($seats, 16, 2);
-		while(strlen($seats) < 4)
-			$seats = "0".$seats;
-		$seats = str_split($seats);
-		$pozycja = $miejsce%4;
-		if($seats[$pozycja] == "0"){
-			$seats[$pozycja] = "1";
-			$seats = implode("", $seats);
-			$seats = base_convert ($seats, 2, 16);
-			$row[$segment] = $seats;
-			$row = implode("", $row);
-			$polaczenie->query("UPDATE LOTY SET WOLNE_MIEJSCA='$row' WHERE ID_LOTU='$idlotu'");
-			$sql = "INSERT INTO REZERWACJE VALUES (NULL, '$idklienta', '$idlotu', '$miejsce', 'REZERWACJA')";
-			$polaczenie->query($sql);
-			$polaczenie->query("COMMIT");
-			$status = "POTWIERDZONA";
-			$comment = "Wybrane miejsce zostało zarezerwowane.";
+		$rezultat3 = $polaczenie->query("SELECT ILOSC_MIEJSC FROM POJEMNOSC_SAMOLOTU WHERE ID_WERSJI_SAMOLOTU = '$planeVer'");
+		$rowCap = mysqli_fetch_assoc($rezultat3);
+		$planeCap = $rowCap['ILOSC_MIEJSC'];
+		$planeCap = intval($planeCap);
+
+	if($_POST['random'] == "first"){
+	
+			$row = $rowAll['WOLNE_MIEJSCA'];
+			$row = str_split($row);
+			$rowLen = count($row);
+			$i=0;
+			$seg = $row[$i];
+			while($seg == "f" && $i < $rowLen){
+				$i++;
+				$seg = $row[$i];
+			}
+
+			if($i == $rowLen){
+				$polaczenie->query("ROLLBACK");
+				$status = "NIEUDANA";
+				$comment = "Brak miejsc w tym locie.";
+			}else{
+
+				$seats = base_convert ($seg, 16, 2);
+				while(strlen($seats) < 4)
+					$seats = "0".$seats;
+				$seats = str_split($seats);
+
+				$k = 0;
+				$place = -1;
+				for($k = 0; $k < 4; $k++){
+					$place = $i*4 + $k;
+					if($seats[$k] == "0" && $place < $planeCap){
+						$seats[$k] = "1";
+						$seats = implode("", $seats);
+						$seats = base_convert ($seats, 2, 16);
+						$row[$i] = $seats;
+						$row = implode("", $row);
+						$polaczenie->query("UPDATE LOTY SET WOLNE_MIEJSCA='$row' WHERE ID_LOTU='$idlotu'");
+						$sql = "INSERT INTO REZERWACJE VALUES (NULL, '$idklienta', '$idlotu', '$place', 'REZERWACJA')";
+						$polaczenie->query($sql);
+						$polaczenie->query("COMMIT");
+						$status = "POTWIERDZONA";
+						$comment = "Miejsce zostało zarezerwowane. Sprawdź zakładkę 'Moje Rezerwacje'";
+						break;
+					}
+				}
+
+
+				if($place >= $planeCap){
+					$polaczenie->query("ROLLBACK");
+					$status = "NIEUDANA";
+					$comment = "Brak miejsc w tym locie.";
+				}
+
+
+
+			}
+	
+			
+	}else{
+
+		if($miejsce < $planeCap){
+			$row = $rowAll['WOLNE_MIEJSCA'];
+			$row = str_split($row);
+			$rowLen = count($row);
+			$segment = floor($miejsce/4.0);
+			$seats = $row[$segment];
+			$seats = base_convert ($seats, 16, 2);
+			while(strlen($seats) < 4)
+				$seats = "0".$seats;
+			$seats = str_split($seats);
+			$pozycja = $miejsce%4;
+			if($seats[$pozycja] == "0"){
+				$seats[$pozycja] = "1";
+				$seats = implode("", $seats);
+				$seats = base_convert ($seats, 2, 16);
+				$row[$segment] = $seats;
+				$row = implode("", $row);
+				$polaczenie->query("UPDATE LOTY SET WOLNE_MIEJSCA='$row' WHERE ID_LOTU='$idlotu'");
+				$sql = "INSERT INTO REZERWACJE VALUES (NULL, '$idklienta', '$idlotu', '$miejsce', 'REZERWACJA')";
+				$polaczenie->query($sql);
+				$polaczenie->query("COMMIT");
+				$status = "POTWIERDZONA";
+				$comment = "Wybrane miejsce zostało zarezerwowane.";
+			}else{
+				//miejsce zajęte
+				$polaczenie->query("ROLLBACK");
+				$status = "NIEUDANA";
+				$comment = "Wybrane miejsce jest już zajęte.";
+			}
 		}else{
-			//miejsce zajęte
+			//miejsce spoza zakresu
 			$polaczenie->query("ROLLBACK");
 			$status = "NIEUDANA";
-			$comment = "Wybrane miejsce jest już zajęte.";
+			$comment = "Wybrane miejsce nie istnieje.";
 		}
-	}else{
-		//miejsce spoza zakresu
-		$polaczenie->query("ROLLBACK");
-		$status = "NIEUDANA";
-		$comment = "Wybrane miejsce nie istnieje.";
 	}
 
 }

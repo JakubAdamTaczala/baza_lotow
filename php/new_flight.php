@@ -77,7 +77,7 @@ mysqli_select_db($polaczenie, $db_name);
     $polaczenie->close();
     */
 
-    if($d_start>=$d_ladowania){
+    if($d_start>$d_ladowania){
         $status = "NIEPOWODZENIE";
         $comment = "Błędne dane.";
     }
@@ -85,12 +85,41 @@ mysqli_select_db($polaczenie, $db_name);
     else if($jest_OK==true) {
         $polaczenie->query("SET AUTOCOMMIT=0");
         $polaczenie->query("START TRANSACTION");
+        $row = $polaczenie->query("SELECT * FROM SAMOLOTY WHERE ID_SAMOLOTU=$id_samolotu");
 
-        $sql = "INSERT INTO LOTY VALUES(NULL, '$id_samolotu', '$m_start', '$d_start', '$t_start', '$m_ladowania', '$d_ladowania', '$t_ladowania', '00', '-BRAK-')";
-        $polaczenie->query($sql);
-        $polaczenie->query("COMMIT");
-        $status = "POWODZENIE";
-        $comment = "Lot został dodany.";
+        if($row->num_rows == 0){
+            $polaczenie->query("ROLLBACK");
+            $status = "NIEPOWODZENIE";
+            $comment= "Samolot nie istnieje.";
+        }else{
+            $param = mysqli_fetch_assoc($row);
+            $param = $param['ID_WERSJI_SAMOLOTU'];
+
+            $row = $polaczenie->query("SELECT * FROM POJEMNOSC_SAMOLOTU WHERE ID_WERSJI_SAMOLOTU=$param");
+            $info = mysqli_fetch_assoc($row);
+            $planeCapacity = $info['ILOSC_MIEJSC'];
+            $planeName = $info['NAZWA_WERSJI_SAMOLOTU'];
+
+            $seats = "";
+            $number = 0;
+            if($planeCapacity % 4 != 0){
+                $number = intval($planeCapacity/4) + 1;
+            }else{
+                $number = $planeCapacity/4;
+            }
+            
+            while(strlen($seats) < $number){
+                $seats = "0".$seats;
+            }
+
+            $sql = "INSERT INTO LOTY VALUES(NULL, '$id_samolotu', '$m_start', '$d_start', '$t_start', '$m_ladowania', '$d_ladowania', '$t_ladowania', '$seats', '-BRAK-')";
+            $polaczenie->query($sql);
+            $polaczenie->query("COMMIT");
+            $status = "POWODZENIE";
+            $comment = "Lot został dodany.<br> Samolot: $planeName, ilość miejsc: $planeCapacity";
+        }
+
+
     }
 
     else{
@@ -109,7 +138,7 @@ if($status == "POWODZENIE"){
 
 ?>
 
-<h3>Status modyfikacji: <?php echo $status ?></h3>
+<h3>Status: <?php echo $status ?></h3>
 <p><?php echo $comment ?></p>
 
 <p><a href=add_flight.php>Powrót</a></p>

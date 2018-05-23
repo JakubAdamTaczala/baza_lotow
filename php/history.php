@@ -1,11 +1,10 @@
+
 <?php #Jeśli użytkownik zalogowany
     session_start();
-
     if(!isset($_SESSION['zalogowany'])){
         header('Location: index.php');
         exit();
     }
-
     if($_SESSION['USER'] == "STAFF"){
         header('Location: staff_s_account.php');
         exit();
@@ -44,13 +43,10 @@
     mysqli_query($polaczenie, "SET CHARSET utf8");
     mysqli_query($polaczenie, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     mysqli_select_db($polaczenie, $db_name);
-
     $user_id=$_SESSION['id'];
     $rezultat=@$polaczenie->query("SELECT ID_REZERWACJI, REZERWACJE.ID_LOTU, SKAD, DATA_ODLOTU, GODZINA_ODLOTU, DOKAD, DATA_PRZYLOTU, CZAS_PRZYLOTU, NUMER_MIEJSCA, STATUS, Uwagi FROM REZERWACJE, LOTY WHERE LOTY.ID_LOTU=REZERWACJE.ID_LOTU AND ID_KLIENTA='$user_id' ORDER BY `REZERWACJE`.`ID_REZERWACJI` DESC");
     $ile=$rezultat->num_rows;
-
 echo<<<END
-
     <table>
     <thead>
     <tr>
@@ -58,7 +54,6 @@ echo<<<END
     </tr>
     </thead>
 END;
-
     for ($i = 1; $i <= $ile; $i++)
     {
         $row = mysqli_fetch_assoc($rezultat);
@@ -73,7 +68,6 @@ END;
         $numer_miejsca = $row['NUMER_MIEJSCA'];
         $status = $row['STATUS'];
         $uwagi= $row['Uwagi'];
-
 echo<<<END
     <tbody>
     <tr>
@@ -82,14 +76,17 @@ echo<<<END
     </tbody>
 END;
     }
-
 echo<<<END
     </table>
 END;
-
     $polaczenie->close();
 ?>
 </div>
 </div>
+
+<br><br><br><br>
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>

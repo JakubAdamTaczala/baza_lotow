@@ -226,5 +226,9 @@ if(isset($_SESSION['blad_bazy_dev'])){
 </form>
 
 </div>
+
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>
