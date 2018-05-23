@@ -44,13 +44,22 @@ echo<<<END
 	<p>Numer miejsca:
 	<input type="number" name="numer_miejsca" />
 	<input type="hidden" name="idlotu" value="$idlotu"/>
+    <input type="hidden" name="random" value="none" />
 	<input type="submit" value="Rezerwuj"/>
     </p>
+</form>
+
+<form action="booking.php" method="post">
+    <input type="hidden" name="idlotu" value="$idlotu" />
+    <input type="hidden" name="random" value="first" />
+    <p><input type="submit" value="Rezerwuj pierwsze wolne miejsce!" /></p>
 </form>
 </div>
 END;
 
 ?>
-
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>

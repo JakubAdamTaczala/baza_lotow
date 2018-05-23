@@ -47,15 +47,25 @@
     <h3>Moje dane</h3>
 <table>
 <?php
-    echo '<tr><td>Imię i nazwisko: </td><td>'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'</td></tr>';
-    echo '<tr><td>E-mail: </td><td>'.$_SESSION['mail'].'</td></tr>';
-    echo '<tr><td>Numer telefonu: </td><td>'.$_SESSION['telefon'].'</td></tr>';
+    echo '<tr><td>Imię:          </td><td>'.$_SESSION['imie'].'</td></tr>';
+    echo '<tr><td>Nazwisko:      </td><td>'.$_SESSION['nazwisko'].'</td></tr>';
+    echo '<tr><td>E-mail:        </td><td>'.$_SESSION['mail'].'</td></tr>';
+    echo '<tr><td>Numer telefonu:</td><td>'.$_SESSION['telefon'].'</td></tr>';
 
 ?>
 </table>
 </div>
-    <h3>Edycja danych: TODO</h3>
-
+    <div class="standardframe">
+        <h3>Edycja danych</h3>
+        <center>
+            <a href="edit_data.php">Edytuj dane</a><br/>
+            <br/>
+            <a href="new_password.php">Zmień hasło</a><br/>
+        </center>
+    </div>
 </div>
 </body>
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </html>

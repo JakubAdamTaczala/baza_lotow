@@ -48,9 +48,6 @@ mysqli_query($polaczenie, "SET CHARSET utf8");
 mysqli_query($polaczenie, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
 mysqli_select_db($polaczenie, $db_name);
 
-$rezultat=@$polaczenie->query("SELECT NAZWA_LINII, ID_LOTU, SKAD, DATA_ODLOTU, GODZINA_ODLOTU, DOKAD, DATA_PRZYLOTU, CZAS_PRZYLOTU, WOLNE_MIEJSCA, Uwagi FROM LOTY, LINIE_LOTNICZE, SAMOLOTY WHERE SAMOLOTY.ID_LINII=LINIE_LOTNICZE.ID_LINII AND LOTY.ID_SAMOLOTU=SAMOLOTY.ID_SAMOLOTU");
-$ile=$rezultat->num_rows;
-
 echo<<<END
     <div class="standardform">
     <h3>Szukaj lotu</h3>
@@ -58,8 +55,8 @@ echo<<<END
     <table>
         <tr><td>Miasto startu:      </td><td><input type="text" name="m_startu"/></td></tr>
         <tr><td>Miasto lądowania:   </td><td><input type="text" name="m_ladowania"/></td></tr>
-        <tr><td>Start dnia:         </td><td><input type="date" name="m_ladowania"/></td></tr>
-        <tr><td>Lądowanie dnia:     </td><td><input type="date" name="m_ladowania"/></td></tr>
+        <tr><td><input type="radio" name="kierunek" value="odlot">Start</td><td><input type="radio" name="kierunek" value="przylot">Lądowanie</td></tr>
+        <tr><td>Dnia:              </td><td><input type="date" name="dzien"/></td></tr>
        </table>
     <br/><input type="submit" value="Szukaj"/>
 
@@ -75,6 +72,20 @@ echo<<<END
     </thead>
     <tbody>
 END;
+
+    $M_startu = $_POST['m_startu'];
+    $M_ladowania = $_POST['m_ladowania'];
+    if ($_POST['kierunek']=="przylot"){
+        $D_startu = ' ';
+        $D_ladowania = $_POST['dzien'];
+    }
+    else{
+        $D_startu = $_POST['dzien'];
+        $D_ladowania = ' ';
+    }
+
+    $rezultat=@$polaczenie->query("SELECT NAZWA_LINII, ID_LOTU, SKAD, DATA_ODLOTU, GODZINA_ODLOTU, DOKAD, DATA_PRZYLOTU, CZAS_PRZYLOTU, WOLNE_MIEJSCA, Uwagi FROM LOTY, LINIE_LOTNICZE, SAMOLOTY WHERE SAMOLOTY.ID_LINII=LINIE_LOTNICZE.ID_LINII AND LOTY.ID_SAMOLOTU=SAMOLOTY.ID_SAMOLOTU AND (LOTY.SKAD='$M_startu' AND LOTY.DOKAD='$M_ladowania' AND LOTY.Uwagi!='ODWOŁANY' AND (LOTY.DATA_ODLOTU='$D_startu' OR LOTY.DATA_PRZYLOTU='$D_ladowania'))");
+    $ile=$rezultat->num_rows;
 
 for ($i = 1; $i <= $ile; $i++)
 {
@@ -111,5 +122,9 @@ END;
 $polaczenie->close();
 ?>
 </div>
+<br><br><br><br>
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>

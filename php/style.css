@@ -187,6 +187,7 @@ a:hover{
 }
 
 .footer {
+	background: linear-gradient(to bottom right, #77c9d4, #57bc90 );
     position: fixed;
     left: 0;
     bottom: 0;

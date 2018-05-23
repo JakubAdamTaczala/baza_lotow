@@ -41,7 +41,8 @@
     <div class = "header" ><img src="logo.png" /><h1>Zarządzanie systemem rezerwacji biletów lotniczych</h1></div>
     <div class = "navbar" ><ul>
         <li><p>Witaj <?php echo $_SESSION['imie'].' '.$_SESSION['nazwisko'] ?>!</p></li>
-        <li><a href="staff_s_account.php">Panel pracownika</a></li>
+        <li><a href="staff_s_account.php">Podgląd lotów</a></li>
+        <li><a href="add_flight.php">Doddaj lot</a></li>
         <li><a href="logout.php">Wylogowanie</a></li>
     </ul></div>
 
@@ -139,7 +140,7 @@
     <h3>Status modyfikacji: <?php echo $status ?></h3>
     <p><?php echo $comment ?></p>
 
-    <p><a href=/staff_s_account.php>Powrót</a></p>
+    <p><a href=staff_s_account.php>Powrót</a></p>
 
     </div>
 

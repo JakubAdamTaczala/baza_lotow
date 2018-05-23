@@ -35,7 +35,7 @@ if(isset($_POST['imie'])){
 
     $nazwisko=$_POST['nazwisko'];
     //sprawdzenie czy jest nazwisko, min 2 znaki
-    if (strlen($imie)<2){
+    if (strlen($nazwisko)<2){
         $wszystko_OK=false;
         $_SESSION['e_nazwisko']="Nazwisko musi posiadać przynajmniej dwa znaki.";
     }
@@ -62,13 +62,13 @@ if(isset($_POST['imie'])){
     if ((strlen($haslo1)<8) || (strlen($haslo1)>26))
     {
         $wszystko_OK=false;
-        $_SESSION['e_haslo']="Hasło musi posiadać od 8 do 26 znaków.";
+        $_SESSION['e_haslo1']="Hasło musi posiadać od 8 do 26 znaków.";
     }
 
     if ($haslo1!=$haslo2)
     {
         $wszystko_OK=false;
-        $_SESSION['e_haslo']="Podane hasła nie są identyczne.";
+        $_SESSION['e_haslo2']="Podane hasła nie są identyczne.";
     }
 
     $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT); //echo $haslo_hash; exit();
@@ -194,14 +194,21 @@ if(isset($_SESSION['blad_bazy_dev'])){
 
     Hasło: <br/><input type="password" name="haslo1"/><br/>
     <?php
-    if (isset($_SESSION['e_haslo']))
+    if (isset($_SESSION['e_haslo1']))
     {
-        echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
-        unset($_SESSION['e_haslo']);
+        echo '<div class="error">'.$_SESSION['e_haslo1'].'</div>';
+        unset($_SESSION['e_haslo1']);
     }
     ?>
 
     Powtórz hasło: <br/><input type="password" name="haslo2"/><br/>
+    <?php
+    if (isset($_SESSION['e_haslo2']))
+    {
+        echo '<div class="error">'.$_SESSION['e_haslo2'].'</div>';
+        unset($_SESSION['e_haslo2']);
+    }
+    ?>
 
     <label>
         <input type="checkbox" name="regulamin"/> Akceptuję <a href="regulamin.html">regulamin</a><br/>
@@ -219,5 +226,9 @@ if(isset($_SESSION['blad_bazy_dev'])){
 </form>
 
 </div>
+
+    <div class="footer">
+        <p>Copyleft 2018 - Michał Ślusarczyk, Jakub Taczała</p>
+    </div>
 </body>
 </html>
